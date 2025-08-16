@@ -4,70 +4,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Convert Money</title>
+    <title>Convert Money - Grok Edition</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
-
 </head>
 
 <body>
-
 
     <img class="img-pato" src="/assets/pato-alt.gif" alt="img-logo-pato">
 
     <main>
 
-        <label for="">
+        <label for="currency-from">
             Converter <b>de</b>
-            <select name="" id="">
-
-                <option value="">
-                    R$ Real Brasileiro</option>
+            <select id="currency-from" class="currency-select-from">
+                <option value="brl">R$ Real Brasileiro</option>
+                <option value="usd">US$ Dólar Americano</option>
+                <option value="eur">€ Euro</option>
+                <option value="btc">₿ Bitcoin</option>
             </select>
         </label>
 
-        <label for="">
+        <label for="currency-to">
             Converter <b>para</b>
-            <select class="currency-select">
-
-
-                <option value="dolar">
-                    US$ Dólar Americano</option>
-                <option value="euro">€ Euro</option>
+            <select id="currency-to" class="currency-select-to">
+                <option value="usd">US$ Dólar Americano</option>
+                <option value="eur">€ Euro</option>
+                <option value="brl">R$ Real Brasileiro</option>
+                <option value="btc">₿ Bitcoin</option>
             </select>
         </label>
 
-
-        <label for="">
+        <label for="input-currency">
             Valor:
-            <input class="input-currency" placeholder="R$ 10.000,00">
+            <input id="input-currency" class="input-currency" placeholder="0.00">
         </label>
 
         <button class="convert-button">Converter</button>
 
         <section>
-            <div class="currency-box">
-                <img class="real" src="/assets/real.png" alt="moeda-brasil-a-converter">
-                <p class="currency">Real</p>
+            <div class="currency-box from-box">
+                <img class="currency-img-from" src="/assets/real.png" alt="moeda-origem">
+                <p class="currency currency-name-from">Real Brasileiro</p>
                 <p class="currency-value-to-convert">R$ 0,00</p>
             </div>
 
-            <img class="arrows" src="/assets/arrow.png" alt="">
+            <img class="arrows" src="/assets/arrow.png" alt="seta-conversao">
 
-            <div class="currency-box">
-                <img class="dolar" src="/assets/dolar.png" alt="logo-moeda-convertida">
-                <p class="currency" id="currency-name">Dólar</p>
+            <div class="currency-box to-box">
+                <img class="currency-img-to" src="/assets/dolar.png" alt="moeda-destino">
+                <p class="currency currency-name-to">Dólar Americano</p>
                 <p class="currency-value">US$ 0,00</p>
             </div>
-
         </section>
 
     </main>
 
+    <script src="scripts.js"></script>
 </body>
-<script src="/scripts.js"></script>
 
 </html>

@@ -1,61 +1,74 @@
-const botaoClicado = document.querySelector('.convert-button')
-const currencySelect = document.querySelector('.currency-select')
+const botaoClicado = document.querySelector('.convert-button');
+const currencyFromSelect = document.querySelector('#currency-from');
+const currencyToSelect = document.querySelector('#currency-to');
+const inputCurrency = document.querySelector('.input-currency');
+const currencyValueToConvert = document.querySelector('.currency-value-to-convert');
+const currencyValueConverted = document.querySelector('.currency-value');
+const currencyNameFrom = document.querySelector('.currency-name-from');
+const currencyNameTo = document.querySelector('.currency-name-to');
+const currencyImgFrom = document.querySelector('.currency-img-from');
+const currencyImgTo = document.querySelector('.currency-img-to');
 
+const currencyInfo = {
+    brl: { name: 'Real Brasileiro', img: '/assets/real.png', locale: 'pt-BR', currency: 'BRL' },
+    usd: { name: 'Dólar Americano', img: '/assets/dolar.png', locale: 'en-US', currency: 'USD' },
+    eur: { name: 'Euro', img: '/assets/euro.png', locale: 'de-DE', currency: 'EUR' },
+    btc: { name: 'Bitcoin', img: '/assets/bitcoin.png', locale: 'en-US', currency: 'BTC' } // Assumindo que você tem bitcoin.png
+};
 
+const updateUI = () => {
+    const from = currencyFromSelect.value;
+    const to = currencyToSelect.value;
 
-function convertvalues() {
-    const inputCurrencyValue = document.querySelector('.input-currency').value
-    const currencyValueToConvert = document.querySelector('.currency-value-to-convert')
-    const currencyValueConverted = document.querySelector('.currency-value')
+    currencyNameFrom.innerHTML = currencyInfo[from].name;
+    currencyImgFrom.src = currencyInfo[from].img;
 
-    const dolarToday = 5.2
-    const euroToday = 6.2
+    currencyNameTo.innerHTML = currencyInfo[to].name;
+    currencyImgTo.src = currencyInfo[to].img;
 
+    inputCurrency.placeholder = formatValue(0, from).replace(/\d.*$/, '0.00');
+};
 
-    if (currencySelect.value == 'dolar') {
-        currencyValueConverted.innerHTML = new Intl.NumberFormat('en-US', {
-            style: 'currency',
-            currency: 'USD'
-        }).format(inputCurrencyValue / dolarToday)
-
+const formatValue = (value, curr) => {
+    if (curr === 'btc') {
+        return `₿ ${value.toFixed(8)}`;
     }
-
-    if (currencySelect.value == 'euro') {
-        currencyValueConverted.innerHTML = new Intl.NumberFormat('de-DE', {
-            style: 'currency',
-            currency: 'EUR'
-        }).format(inputCurrencyValue / euroToday)
-    }
-
-
-    currencyValueToConvert.innerHTML = new Intl.NumberFormat('pt-BR', {
+    return new Intl.NumberFormat(currencyInfo[curr].locale, {
         style: 'currency',
-        currency: 'BRl'
-    }).format(inputCurrencyValue)
+        currency: currencyInfo[curr].currency
+    }).format(value);
+};
 
+const convertValues = async () => {
+    const inputValue = parseFloat(inputCurrency.value) || 0;
+    const from = currencyFromSelect.value;
+    const to = currencyToSelect.value;
 
-
-}
-
-function changeCurrency() {
-    const currencyName = document.getElementById('currency-name')
-    const currencyImage = document.querySelector('.dolar')
-
-    if (currencySelect.value == 'dolar') {
-        currencyName.innerHTML = 'Dólar Americano'
-        currencyImage.src = '/assets/dolar.png'
+    if (from === to) {
+        currencyValueConverted.innerHTML = formatValue(inputValue, to);
+        currencyValueToConvert.innerHTML = formatValue(inputValue, from);
+        return;
     }
 
-    if (currencySelect.value == 'euro') {
-        currencyName.innerHTML = 'Euro'
-        currencyImage.src = '/assets/Euro.png'
-    }
+    const data = await fetch('https://economia.awesomeapi.com.br/last/USD-BRL,EUR-BRL,BTC-BRL');
+    const dataJson = await data.json();
 
+    const rates = {
+        usd: parseFloat(dataJson.USDBRL.bid),
+        eur: parseFloat(dataJson.EURBRL.bid),
+        btc: parseFloat(dataJson.BTCBRL.bid),
+        brl: 1
+    };
 
+    const valueInBRL = inputValue * rates[from];
+    const convertedValue = valueInBRL / rates[to];
 
-    convertvalues()
-}
+    currencyValueToConvert.innerHTML = formatValue(inputValue, from);
+    currencyValueConverted.innerHTML = formatValue(convertedValue, to);
+};
 
+currencyFromSelect.addEventListener('change', () => { updateUI(); convertValues(); });
+currencyToSelect.addEventListener('change', () => { updateUI(); convertValues(); });
+botaoClicado.addEventListener('click', convertValues);
 
-currencySelect.addEventListener('change', changeCurrency )
-botaoClicado.addEventListener('click', convertvalues)
+updateUI();
