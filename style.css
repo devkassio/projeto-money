@@ -1,157 +1,152 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Montserrat", sans-serif;
-    outline: none;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Montserrat", sans-serif;
+  outline: none;
 }
 
 body {
-    background-color: aqua;
-
+  background-color: lightgray;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  padding: 20px 0; /* Padding para espaçamento vertical */
 }
 
-.img-pato {  /*ESSA CONIG CENTRALIZA A IMG NO CENTRO*/
-    width: 300px;
-
-    display: block;
-
-    margin: 20px auto;
+.img-pato {
+  width: 30%;
+  height: auto;
+  max-width: 150px;
+  margin-bottom: 20px; /* Espaçamento abaixo da imagem */
+  object-fit: contain;
 }
 
 main {
-
-    width: 375px;
-
-    background: #f3f3f3;
-
-    border-radius: 20px;
-
-    margin: 0 auto 40px;
-
-    padding: 44px 24px 23px;
-
+  width: 100%;
+  max-width: 375px;
+  background: #f3f3f3;
+  border-radius: 20px;
+  padding: 44px 24px 23px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
 label {
-    color: #777777;
-    
-    font-weight: 400;
-
-    font-size: 14px;
-
-    
+  color: #777777;
+  font-weight: 400;
+  font-size: 14px;
+  display: block;
+  margin-bottom: 8px;
 }
 
-select, input {
-    background: #ffffff;
-
-    border: 1px solid #bbbbbb;
-
-    border-radius: 4px;
-
-    height: 48px;
-
-    width: 100%;
-
-    margin-bottom: 24px;
-
-    appearance: none;
-
-    padding-left: 18px;
-
-    font-weight: 600;
-
-    font-size: 16px;
-
-    color: #555555;
-
-    cursor: pointer;
+select,
+input {
+  background: #ffffff;
+  border: 1px solid #bbbbbb;
+  border-radius: 4px;
+  height: 48px;
+  width: 100%;
+  margin-bottom: 24px;
+  appearance: none;
+  padding: 0 18px;
+  font-weight: 600;
+  font-size: 16px;
+  color: #555555;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
 }
 
-button {
-    
-    background-color:rgb(132, 71, 245);
-
-    width: 100%;
-
-    height: 48px;
-
-    border-radius: 5px;
-
-    border: none;
-
-    color: #ffffff;
-
-    font-size: 15px;
-
-    font-weight: 600;
-
-    text-transform: uppercase;
-
-    cursor: pointer;
-
+select:focus,
+input:focus {
+  border-color: #772fd3;
 }
 
-button:hover {
-    opacity: .8;
+.currency-select {
+  background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMTIgMTVMOCAxMVYxM0wxMiAxN1YxNUwyMCAxMVYxM0wxMiAxNVoiIGZpbGw9IiM3NzdmZDIiLz48L3N2Zz4='); /* Ícone de seta para select, codificado em base64 para performance */
+  background-position: right 18px center;
+  background-repeat: no-repeat;
+  background-size: 12px;
 }
 
-button:active {
-    opacity: .6;
+button.convert-button {
+  background-color: #8447f5;
+  width: 100%;
+  height: 48px;
+  border-radius: 5px;
+  border: none;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 600;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 0.2s ease, opacity 0.2s ease;
+}
+
+button.convert-button:hover {
+  background-color: #6b3cc4;
+}
+
+button.convert-button:active {
+  opacity: 0.6;
 }
 
 section {
-    border: 1px solid #772fd3; 
+  border: 1px solid #772fd3;
+  border-radius: 20px;
+  margin-top: 36px;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
 
-    border-radius: 20px;
-
-    margin-top: 36px;
-
-    padding: 12px;
-
-    display: flex;
-
+@media (max-width: 400px) {
+  section {
     flex-direction: column;
-
-    align-items: center;
-
+    justify-content: center;
+  }
 }
 
 .arrows {
-    width: 40px;
-    height: 60px;
-    margin: 15px 0;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  transform: rotate(-90deg);
 }
 
 .currency-box {
-    display: flex;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  text-align: center;
+  flex: 1;
+}
 
-    flex-direction: column;
-
-    align-items: center;
-
-    gap: 5px;
-} 
-
+.currency-box img {
+  width: 64px; /* Tamanho consistente para imagens de moedas */
+  height: 64px;
+  object-fit: contain;
+  transition: opacity 0.2s ease; /* Suave transição ao mudar imagem via JS */
+}
 
 .currency {
-    color: #777777;
-    
-    font-size: 14px;
+  color: #777777;
+  font-size: 14px;
 }
 
-.currency-value, .currency-value-to-convert {
-
-    color: #555555;
-
-    font-weight: 600;
-
-    font-size: 20px;
+.currency-value,
+.currency-value-to-convert {
+  color: #555555;
+  font-weight: 600;
+  font-size: 20px;
 }
 
-
-
-
-
-
+/* Adaptações específicas para o JS:
+- Transições suaves para mudanças de imagem e texto.
+- Estilos para elementos manipulados pelo JS, como .currency-value e #currency-name.
+- Garantia de responsividade para mobile, já que o projeto parece mobile-first.
+*/
