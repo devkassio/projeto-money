@@ -9,12 +9,6 @@ const currencyNameTo = document.querySelector('.currency-name-to');
 const currencyImgFrom = document.querySelector('.currency-img-from');
 const currencyImgTo = document.querySelector('.currency-img-to');
 
-const imgLoadingLazy = (img, src) => {
-    img.src = src;
-    img.onload = () => {
-        img.style.opacity = 1;
-    }
-}
 
 const currencyInfo = {
     brl: { name: 'Real Brasileiro', img: './assets/real.png', locale: 'pt-BR', currency: 'BRL' },
@@ -28,10 +22,10 @@ const updateUI = () => {
     const to = currencyToSelect.value;
 
     currencyNameFrom.innerHTML = currencyInfo[from].name;
-    imgLoadingLazy(currencyImgFrom, currencyInfo[from].img);
+    currencyImgFrom.src = currencyInfo[from].img;
 
     currencyNameTo.innerHTML = currencyInfo[to].name;
-    imgLoadingLazy(currencyImgTo, currencyInfo[to].img);
+    currencyImgTo.src = currencyInfo[to].img;
 
     inputCurrency.placeholder = formatValue(0, from).replace(/\d.*$/, '0.00');
 };
