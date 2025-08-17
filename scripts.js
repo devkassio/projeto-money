@@ -17,10 +17,10 @@ const imgLoadingLazy = (img, src) => {
 }
 
 const currencyInfo = {
-    brl: { name: 'Real Brasileiro', img: '/assets/real.png', locale: 'pt-BR', currency: 'BRL' },
-    usd: { name: 'Dólar Americano', img: '/assets/dolar.png', locale: 'en-US', currency: 'USD' },
-    eur: { name: 'Euro', img: '/assets/Euro.svg', locale: 'de-DE', currency: 'EUR' },
-    btc: { name: 'Bitcoin', img: '/assets/bitcoin.png', locale: 'en-US', currency: 'BTC' } 
+    brl: { name: 'Real Brasileiro', img: './assets/real.png', locale: 'pt-BR', currency: 'BRL' },
+    usd: { name: 'Dólar Americano', img: './assets/dolar.png', locale: 'en-US', currency: 'USD' },
+    eur: { name: 'Euro', img: './assets/Euro.svg', locale: 'de-DE', currency: 'EUR' },
+    btc: { name: 'Bitcoin', img: './assets/bitcoin.png', locale: 'en-US', currency: 'BTC' } 
 };
 
 const updateUI = () => {
